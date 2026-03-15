@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import { truncate } from "../lib/utils";
 
 export default function Logout({ authenticatedPubkey, profile, title }) {
   const [error, setError] = useState("");
@@ -36,12 +37,12 @@ export default function Logout({ authenticatedPubkey, profile, title }) {
             {profile ? (
               <div className="flex flex-col items-center gap-2">
                 {profile.picture ? <img src={profile.picture} alt={profile.name || profile.display_name} className="h-12 w-12 rounded-full" /> : null}
-                <p className="text-sm font-medium">{profile.display_name || profile.name || authenticatedPubkey}</p>
+                <p className="text-sm font-medium">{profile.display_name || profile.name || truncate(authenticatedPubkey)}</p>
                 {profile.nip05 ? <p className="text-xs text-muted-foreground">{profile.nip05}</p> : null}
               </div>
             ) : (
               <div className="text-center text-sm text-muted-foreground">
-                Signed in as <code>{authenticatedPubkey}</code>
+                Signed in as <code>{truncate(authenticatedPubkey)}</code>
               </div>
             )}
           </Deferred>
